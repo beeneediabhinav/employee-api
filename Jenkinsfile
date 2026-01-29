@@ -5,13 +5,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t employee-api .'
+                bat 'docker build -t employee-api .'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 3000:3000 employee-api || true'
+                bat 'docker run -d -p 3000:3000 employee-api || exit 0'
             }
         }
 
@@ -41,7 +41,7 @@ pipeline {
 
         stage('Monitoring') {
             steps {
-                sh 'curl http://localhost:3000/health'
+                bat 'curl http://localhost:3000/health'
             }
         }
     }
